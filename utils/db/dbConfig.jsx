@@ -3,5 +3,5 @@ import { drizzle } from "drizzle-orm/neon-http";
 
 import * as schema from './schema'
 
-const sql = neon("postgresql://neondb_owner:qy5rVYEQdSI3@ep-jolly-waterfall-a8n6w1y6.eastus2.azure.neon.tech/neondb?sslmode=require");
+const sql = neon(process.env.DATABASE_URL);
 export const db = drizzle(sql, { schema });
