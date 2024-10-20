@@ -1,40 +1,44 @@
-'use client'
+"use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from 'next/navigation'
-import { Menu, Coins, Leaf, Search, Bell, User, ChevronDown, LogIn, LogOut } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
-//import { Web3Auth } from "@web3auth/modal"
-import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base"
-import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider"
 import { Inter } from 'next/font/google'
 import "./globals.css"
-
-import { Toaster } from 'react-hot-toast'
 import Header from "@/components/Header"
 import Sidebar from "@/components/Sidebar"
+import { Toaster } from 'react-hot-toast'
+import { getAvailableRewards, getUserByEmail } from '@/utils/db/actions'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({
-  children
-}: Readonly<{
+  children,
+}: {
   children: React.ReactNode
-}>) {
+}) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [totalEarnings, setTotalEarnings] = useState(0)
 
   useEffect(() => {
+    const fetchTotalEarnings = async () => {
+      try {
+        const userEmail = localStorage.getItem('userEmail')
+        if (userEmail) {
+          const user = await getUserByEmail(userEmail)
+          console.log('user from layout', user)
+          
+          if (user) {
+            const availableRewards = await getAvailableRewards(user.id) as any
+            console.log('availableRewards from layout', availableRewards)
+                        setTotalEarnings(availableRewards)
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching total earnings:', error)
+      }
+    }
 
-  })
+    fetchTotalEarnings()
+  }, [])
 
   return (
     <html lang="en">

@@ -6,7 +6,7 @@ export const Users = pgTable("users", {
     email: varchar("email", { length: 255 }).notNull().unique(),
     name: varchar("name", { length: 255 }).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+})
 
 // Reports table
 export const Reports = pgTable("reports", {
@@ -20,7 +20,7 @@ export const Reports = pgTable("reports", {
     status: varchar("status", { length: 255 }).notNull().default("pending"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     collectorId: integer("collector_id").references(() => Users.id),
-});
+})
 
 // Rewards table
 export const Rewards = pgTable("rewards", {
@@ -34,7 +34,7 @@ export const Rewards = pgTable("rewards", {
     description: text("description"),
     name: varchar("name", { length: 255 }).notNull(),
     collectionInfo: text("collection_info").notNull(),
-});
+})
 
 // CollectedWastes table
 export const CollectedWastes = pgTable("collected_wastes", {
@@ -43,7 +43,7 @@ export const CollectedWastes = pgTable("collected_wastes", {
     collectorId: integer("collector_id").references(() => Users.id).notNull(),
     collectionDate: timestamp("collection_date").notNull(),
     status: varchar("status", { length: 20 }).notNull().default("collected"),
-});
+})
 
 // Notifications table
 export const Notifications = pgTable("notifications", {
@@ -53,7 +53,7 @@ export const Notifications = pgTable("notifications", {
     type: varchar("type", { length: 50 }).notNull(),
     isRead: boolean("is_read").notNull().default(false),
     createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+})
 
 // New Transactions table
 export const Transactions = pgTable("transactions", {
@@ -63,4 +63,4 @@ export const Transactions = pgTable("transactions", {
     amount: integer("amount").notNull(),
     description: text("description").notNull(),
     date: timestamp("date").defaultNow().notNull(),
-});
+})

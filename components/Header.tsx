@@ -24,17 +24,17 @@ const chainConfig = {
     ticker: "ETH",
     tickerName: "Ethereum",
     logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
-};
+}
 
 const privateKeyProvider = new EthereumPrivateKeyProvider({
     config: { chainConfig },
-});
+})
 
 const web3auth = new Web3Auth({
     clientId,
     web3AuthNetwork: WEB3AUTH_NETWORK.TESTNET,
     privateKeyProvider,
-});
+})
 
 interface HeaderProps {
     onMenuClick: () => void
@@ -85,17 +85,17 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
             if (userInfo && userInfo.email) {
                 const user = await getUserByEmail(userInfo.email)
                 if (user) {
-                    const unreadNotifications = await getUnreadNotifications(user.id);
-                    setNotifications(unreadNotifications);
+                    const unreadNotifications = await getUnreadNotifications(user.id)
+                    setNotifications(unreadNotifications)
                 }
             }
         }
         fetchNotifications()
 
         // Set up periodic checking for new notifications
-        const notificationInterval = setInterval(fetchNotifications, 30000); // Check every 30 seconds
+        const notificationInterval = setInterval(fetchNotifications, 30000) // Check every 30 seconds
 
-        return () => clearInterval(notificationInterval);
+        return () => clearInterval(notificationInterval)
 
     }, [userInfo])
 
@@ -164,7 +164,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
             setUserInfo(null)
             localStorage.removeItem('userEmail')
         } catch (error) {
-            console.error("Error during logout:", error);
+            console.error("Error during logout:", error)
         }
     }
 
