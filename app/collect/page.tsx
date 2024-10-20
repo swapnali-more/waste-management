@@ -359,13 +359,6 @@ export default function CollectPage() {
                     </div>
                 </div>
             )}
-
-            {/* Add a conditional render to show user info or login prompt */}
-            {/* {user ? (
-        <p className="text-sm text-gray-600 mb-4">Logged in as: {user.name}</p>
-      ) : (
-        <p className="text-sm text-red-600 mb-4">Please log in to collect waste and earn rewards.</p>
-      )} */}
         </div>
     )
 }
